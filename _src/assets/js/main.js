@@ -9,9 +9,9 @@ const showList = document.querySelector('.show__list');
 const url = 'http://api.tvmaze.com/search/shows?q=';
 let ENDPOINT = '';
 
-function getTitle () {
+function getEndpoint () {
   ENDPOINT = url + input.value;
-  console.log(ENDPOINT);
+  //console.log(ENDPOINT);
 
   getSeries();
 }
@@ -25,10 +25,9 @@ function getSeries () {
 
       let nameList = '';
       for (let item of data) {
-        console.log(item.show.name);
+        //console.log(item.show.name);
 
         if (item.show.image === null) {
-          console.log('no tenemos imagen');
           nameList += `
             <li class="show" data-id="${item.show.id}">
               <div class="show__container">
@@ -56,5 +55,4 @@ function getSeries () {
 }
 
 
-
-btn.addEventListener('click', getTitle);
+btn.addEventListener('click', getEndpoint);
