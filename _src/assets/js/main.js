@@ -9,6 +9,13 @@ const showList = document.querySelector('.show__list');
 const url = 'http://api.tvmaze.com/search/shows?q=';
 let ENDPOINT = '';
 
+function fav (event) {
+  const item = event.currentTarget;
+  const name = item.getAttribute('data-id');
+  console.log(name);
+}
+
+
 function getEndpoint () {
   ENDPOINT = url + input.value;
   //console.log(ENDPOINT);
@@ -50,6 +57,12 @@ function getSeries () {
       }
 
       showList.innerHTML = nameList;
+
+      const showFav = document.querySelectorAll('.show');
+
+      for (let i=0; i<showFav.length; i++) {
+        showFav[i].addEventListener('click', fav);
+      }
 
     });
 }
