@@ -6,13 +6,27 @@ const input = document.querySelector('.input__field');
 const btn = document.querySelector('.btn');
 const showList = document.querySelector('.show__list');
 
+const arrFav = [];
+
 const url = 'http://api.tvmaze.com/search/shows?q=';
 let ENDPOINT = '';
 
 function fav (event) {
   const item = event.currentTarget;
-  const name = item.getAttribute('data-id');
-  console.log(name);
+  const id = item.getAttribute('data-id');
+  console.log(id);
+
+  item.classList.toggle('favourite__show');
+
+  if (item.classList.contains('favourite__show') && arrFav.includes(id) === false) {
+    arrFav.push(id);
+  } else {
+    const index = arrFav.indexOf(id);
+    if (index > -1) {
+      arrFav.splice(index, 1);
+    }
+  }
+  console.log(arrFav);
 }
 
 
