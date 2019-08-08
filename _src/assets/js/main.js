@@ -6,8 +6,25 @@ const input = document.querySelector('.input__field');
 const btn = document.querySelector('.btn');
 const seriesList = document.querySelector('.series__list');
 
-function writte () {
-  seriesList.innerHTML = input.value;
+const url = 'http://api.tvmaze.com/search/shows?q=';
+let ENDPOINT = '';
+
+function getTitle () {
+  ENDPOINT = url + input.value;
+
+  getSeries();
 }
 
-btn.addEventListener('click', writte);
+function getSeries () {
+
+  fetch(ENDPOINT)
+    .then(response => response.json())
+    .then(data => {
+
+
+    });
+}
+
+
+
+btn.addEventListener('click', getTitle);
