@@ -12,3 +12,21 @@ body {
 .favourite__show {
   background-color: $color-fauvorite;
 }
+
+.show__fav-list {
+  text-decoration: none;
+}
+
+.show__list {
+  text-decoration: none;
+}
+
+.container {
+  display: flex;
+  justify-content: space-around;
+
+}
+
+.cont2 {
+  background-color: cyan;
+}

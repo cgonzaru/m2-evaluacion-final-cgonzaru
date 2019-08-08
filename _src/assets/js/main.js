@@ -5,8 +5,12 @@ console.log('>> Ready :)');
 const input = document.querySelector('.input__field');
 const btn = document.querySelector('.btn');
 const showList = document.querySelector('.show__list');
+const showFavList = document.querySelector('.show__fav-list');
+
 
 const arrFav = [];
+const arrObj = [];
+
 
 const url = 'http://api.tvmaze.com/search/shows?q=';
 let ENDPOINT = '';
@@ -14,19 +18,61 @@ let ENDPOINT = '';
 function fav (event) {
   const item = event.currentTarget;
   const id = item.getAttribute('data-id');
-  console.log(id);
+  const name = item.getAttribute('data-name');
+  const img = item.getAttribute('data-src');
+  const obj = {
+    'showId': id,
+    'showName': name,
+    'showImg': img,
+  };
+
+
+  let nameFavList = '';
 
   item.classList.toggle('favourite__show');
 
-  if (item.classList.contains('favourite__show') && arrFav.includes(id) === false) {
-    arrFav.push(id);
-  } else {
-    const index = arrFav.indexOf(id);
-    if (index > -1) {
-      arrFav.splice(index, 1);
+  if (item.classList.contains('favourite__show')) {
+    if (arrObj.includes(id) === false) {
+      arrObj.push(obj);
+      for (let i=0; i<arrObj.length; i++) {
+        console.log('arrFav: --> ', arrObj[i].showName)
+        if (img === '') { //si la imagen está vacía
+          nameFavList += `
+            <li class="show">
+              <div class="show__container">
+                <img src="https://via.placeholder.com/210x295/A7A7A7/?text=TV" alt="${i.name}">
+                <h2 class="title__name">${arrObj[i].showName}</h2>
+              </div>
+            </li>
+          `;
+        } else {
+          nameFavList += `
+            <li class="show">
+              <div class="show__container">
+                <img src="${arrObj[i].showImg}" alt="${arrObj[i].showName}">
+                <h2 class="title__name">${arrObj[i].showName}</h2>
+              </div>
+            </li>
+          `;
+        }
+        //showFavList.innerHTML = nameFavList;
+      }
     }
+  } else {
+    // lo quito del array
+    const index = arrObj.indexOf(id);
+    if (index > -1) {
+      arrObj.splice(index, 1);
+    }
+
+
+    //showFavList.innerHTML = nameFavList;
+
+    console.log('arrObjEliminate: --> ', arrObj);
+
   }
-  console.log(arrFav);
+
+  showFavList.innerHTML = nameFavList;
 }
 
 
@@ -50,7 +96,7 @@ function getSeries () {
 
         if (item.show.image === null) {
           nameList += `
-            <li class="show" data-id="${item.show.id}">
+            <li class="show" data-id="${item.show.id}" data-name="${item.show.name}" data-src="">
               <div class="show__container">
                 <img src="https://via.placeholder.com/210x295/A7A7A7/?text=TV" alt="${item.show.name}">
                 <h2 class="title__name">${item.show.name}</h2>
@@ -59,7 +105,7 @@ function getSeries () {
           `;
         } else {
           nameList += `
-            <li class="show" data-id="${item.show.id}">
+            <li class="show" data-id="${item.show.id}" data-name="${item.show.name}" data-src="${item.show.image.medium}">
               <div class="show__container">
                 <img src="${item.show.image.medium}" alt="${item.show.name}">
                 <h2 class="title__name">${item.show.name}</h2>
