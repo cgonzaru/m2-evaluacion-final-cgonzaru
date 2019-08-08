@@ -11,6 +11,7 @@ let ENDPOINT = '';
 
 function getTitle () {
   ENDPOINT = url + input.value;
+  console.log(ENDPOINT);
 
   getSeries();
 }
@@ -20,8 +21,7 @@ function getSeries () {
   fetch(ENDPOINT)
     .then(response => response.json())
     .then(data => {
-
-
+      console.log(data[0].show.name);
     });
 }
 
