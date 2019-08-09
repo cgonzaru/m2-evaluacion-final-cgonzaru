@@ -8,7 +8,7 @@ const showList = document.querySelector('.show__list');
 const showFavList = document.querySelector('.show__fav-list');
 
 
-const arrFav = [];
+
 const arrObj = [];
 
 
@@ -32,15 +32,14 @@ function fav (event) {
   item.classList.toggle('favourite__show');
 
   if (item.classList.contains('favourite__show')) {
-    if (arrObj.includes(id) === false) {
+    if (arrObj.includes(obj) === false) {
       arrObj.push(obj);
       for (let i=0; i<arrObj.length; i++) {
-        console.log('arrFav: --> ', arrObj[i].showName)
-        if (img === '') { //si la imagen está vacía
+        if (arrObj[i].showImg === null) { //si la imagen está vacía
           nameFavList += `
             <li class="show">
               <div class="show__container">
-                <img src="https://via.placeholder.com/210x295/A7A7A7/?text=TV" alt="${i.name}">
+                <img src="https://via.placeholder.com/210x295/A7A7A7/?text=TV" alt="${arrObj[i].showName}">
                 <h2 class="title__name">${arrObj[i].showName}</h2>
               </div>
             </li>
@@ -58,21 +57,20 @@ function fav (event) {
         //showFavList.innerHTML = nameFavList;
       }
     }
+    localStorage.setItem('obj', JSON.stringify(arrObj));
   } else {
     // lo quito del array
-    const index = arrObj.indexOf(id);
+    const index = arrObj.indexOf(obj);
     if (index > -1) {
       arrObj.splice(index, 1);
     }
 
-
-    //showFavList.innerHTML = nameFavList;
-
-    console.log('arrObjEliminate: --> ', arrObj);
-
   }
 
+  const savedTasks = JSON.parse(localStorage.getItem('tasks'));
+
   showFavList.innerHTML = nameFavList;
+
 }
 
 
@@ -96,9 +94,9 @@ function getSeries () {
 
         if (item.show.image === null) {
           nameList += `
-            <li class="show" data-id="${item.show.id}" data-name="${item.show.name}" data-src="">
+            <li class="show" data-id="${item.show.id}" data-name="${item.show.name}" data-src="https://via.placeholder.com/210x295/A7A7A7/?text=TV">
               <div class="show__container">
-                <img src="https://via.placeholder.com/210x295/A7A7A7/?text=TV" alt="${item.show.name}">
+                <img class="card" src="https://via.placeholder.com/210x295/A7A7A7/?text=TV" alt="${item.show.name}">
                 <h2 class="title__name">${item.show.name}</h2>
               </div>
             </li>
@@ -107,7 +105,7 @@ function getSeries () {
           nameList += `
             <li class="show" data-id="${item.show.id}" data-name="${item.show.name}" data-src="${item.show.image.medium}">
               <div class="show__container">
-                <img src="${item.show.image.medium}" alt="${item.show.name}">
+                <img class="card" src="${item.show.image.medium}" alt="${item.show.name}">
                 <h2 class="title__name">${item.show.name}</h2>
               </div>
             </li>

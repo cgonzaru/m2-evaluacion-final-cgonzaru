@@ -6,10 +6,12 @@ body {
 }
 
 .show {
+  color: $color-fauvorite;
   background-color: $color-pink;
 }
 
 .favourite__show {
+  color: $color-pink;
   background-color: $color-fauvorite;
 }
 
@@ -27,6 +29,11 @@ body {
 
 }
 
+.cont1 {
+
+  text-align: center;
+}
+
 .cont2 {
-  background-color: cyan;
+  text-align: center;
 }
