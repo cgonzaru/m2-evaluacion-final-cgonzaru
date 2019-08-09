@@ -7,9 +7,27 @@ const btn = document.querySelector('.btn');
 const showList = document.querySelector('.show__list');
 const showFavList = document.querySelector('.show__fav-list');
 
+let savedTasks = JSON.parse(localStorage.getItem('obj'));
+let arrObj = [];
+if(savedTasks) {
+  arrObj = savedTasks;
+} else {
+  arrObj = [];
+}
 
 
-const arrObj = [];
+let showLS = '';
+for(let i=0; i<arrObj.length; i++){
+  showLS += `
+    <li class="show">
+      <div class="show__container">
+        <img src="${arrObj[i].showImg}" alt="${arrObj[i].showName}">
+        <h2 class="title__name">${arrObj[i].showName}</h2>
+      </div>
+    </li>
+  `;
+}
+showFavList.innerHTML = showLS;
 
 
 const url = 'http://api.tvmaze.com/search/shows?q=';
@@ -67,7 +85,7 @@ function fav (event) {
 
   }
 
-  const savedTasks = JSON.parse(localStorage.getItem('tasks'));
+
 
   showFavList.innerHTML = nameFavList;
 
