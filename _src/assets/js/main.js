@@ -1,20 +1,17 @@
 'use strict';
 
-console.log('>> Ready :)');
-
 const input = document.querySelector('.input__field');
 const btn = document.querySelector('.btn');
 const showList = document.querySelector('.show__list');
 const showFavList = document.querySelector('.show__fav-list');
 
-let savedTasks = JSON.parse(localStorage.getItem('obj'));
+const savedTasks = JSON.parse(localStorage.getItem('obj'));
 let arrObj = [];
 if(savedTasks) {
   arrObj = savedTasks;
 } else {
   arrObj = [];
 }
-
 
 let showLS = '';
 for(let i=0; i<arrObj.length; i++){
@@ -29,7 +26,6 @@ for(let i=0; i<arrObj.length; i++){
 }
 showFavList.innerHTML = showLS;
 
-
 const url = 'http://api.tvmaze.com/search/shows?q=';
 let ENDPOINT = '';
 
@@ -43,7 +39,6 @@ function fav (event) {
     'showName': name,
     'showImg': img,
   };
-
 
   let nameFavList = '';
 
@@ -72,29 +67,22 @@ function fav (event) {
             </li>
           `;
         }
-        //showFavList.innerHTML = nameFavList;
       }
     }
     localStorage.setItem('obj', JSON.stringify(arrObj));
   } else {
-    // lo quito del array
     const index = arrObj.indexOf(obj);
     if (index > -1) {
       arrObj.splice(index, 1);
     }
-
   }
 
-
-
   showFavList.innerHTML = nameFavList;
-
 }
 
 
 function getEndpoint () {
   ENDPOINT = url + input.value;
-  //console.log(ENDPOINT);
 
   getSeries();
 }
@@ -104,11 +92,9 @@ function getSeries () {
   fetch(ENDPOINT)
     .then(response => response.json())
     .then(data => {
-      //console.log(data[0].show.name);
 
       let nameList = '';
       for (let item of data) {
-        //console.log(item.show.name);
 
         if (item.show.image === null) {
           nameList += `
